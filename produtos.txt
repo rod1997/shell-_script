@@ -1,0 +1,4 @@
+maca - 8.4
+laranja - 5.6
+banana 2.5
+caqui 6.6
