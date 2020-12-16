@@ -1,50 +1,52 @@
 #!/bin/bash
 
-#controle de caixa 
-
+#controle de caixa
+pulalinha(){
+   echo ""
+}
+sair(){
+   read -n1 -p "pressione algo para sair"
+   clear
+}
 venda(){
-    echo "nome:"
-    read nome
-    echo "quantidade:"
-    read quantidade
+    read -p "nome:" nome
+    read -p "quantidade" quantidade
 
     extrai_val=`cat produtos.txt | grep $nome | sed "s/[a-z]//g" `
     resultado=`echo "scale=2;($extrai_val*$quantidade)" | bc`
 
-    if [ $resultado -lt 1 ]
-    then
-       resultado=`echo 0$resultado`
-    fi
     echo "produto:$nome  quant:$quantidade valor total:$resultado"
-    echo "confirmar venda?[s/n]"
-    read confirma
+    pulalinha
+    read -n1 -p  "confirmar venda?[s/n]" confirma
     if [ $confirma=='s' ]
     then
        data=`date`
        echo "$nome - x$quantidade - RS$resultado - $data" >> vendas.txt
+       pulalinha
        echo "venda efetuada!"
-       echo ""
-       echo "================================================================================================================"
-       echo ""
+       pulalinha
+       sair
     fi
 }
 consulta(){
-    echo "[1]para todos ou [2] pra especificar"
+    echo "[1]todos produtos [2] produto especifico [3] vendas "
     read resposta
-    if [ $resposta -gt 1 ]
+    if [ $resposta -eq 2 ]
     then
         echo "produto:"
         read produto
         resultado=`cat produtos.txt | grep $produto`
         echo nome:`echo $resultado | sed "s/[0-9]//g"`
         echo valor:`echo $resultado | sed "s/[a-z]//g"`
-    else
-        echo `cat produtos.txt` 
+    elif [ $resposta -eq 1 ]
+    then
+        echo `cat produtos.txt`
+    elif [ $resposta -eq 3 ]
+    then
+        echo `cat vendas.txt`
     fi
-     echo ""
-     echo "====================================================================================================================="
-     echo ""
-
+    pulalinha
+    sair
 }
 cadastrar(){
    echo "nome:"
@@ -52,19 +54,20 @@ cadastrar(){
    echo "valor:"
    read valor
    echo "$nome $valor" >> produtos.txt
-   echo ""
-   echo "========================================================================================================================="
-   echo ""
-
+   pulalinha
+   echo "produto $nome cadastrado com sucesso!"
+   pulalinha
+   sair
 }
-
-echo "-----------------------------------------------------------"
-echo "=                                                         ="
-echo "=                     CONTROLE DE CAIXA                   ="
-echo "=                                                         ="
-echo "-----------------------------------------------------------"
+slogan(){
+    echo "-----------------------------------------------------------"
+    echo "=                                                         ="
+    echo "=                     CONTROLE DE CAIXA                   ="
+    echo "=                                                         ="
+    echo "-----------------------------------------------------------"
+}
 while [ 1 ]
-do 
+do   slogan
      echo "[1] venda, [2] cadastrar [3] consulta [4]sair"
      read  acao
      case $acao in

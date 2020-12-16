@@ -6,3 +6,7 @@ tangerina 9.5
 abacaxi 4.55
 pao 0.5
 melancia 20.99
+pessego 8.1
+goiaba 2.5
+pera 4.5
+limao 3.3
