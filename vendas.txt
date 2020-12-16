@@ -1,0 +1,9 @@
+#PRODUTO --  QUANTIDADE -- VALOR_DA_VENDA -- DATA
+banana - 8 - 20.0 - ter dez 15 20:56:24 -03 2020
+banana - x8 - RS20.0 - ter dez 15 20:57:46 -03 2020
+caqui - x4 - RS26.4 - ter dez 15 20:58:31 -03 2020
+banana - x4 - RS10.0 - ter dez 15 21:04:23 -03 2020
+banana - x7 - RS17.5 - ter dez 15 22:09:26 -03 2020
+banana - x7 - RS17.5 - ter dez 15 22:11:49 -03 2020
+caqui - x8 - RS52.8 - ter dez 15 22:18:13 -03 2020
+laranja - x8 - RS-44.8 - ter dez 15 22:32:03 -03 2020

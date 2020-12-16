@@ -2,3 +2,7 @@ maca - 8.4
 laranja - 5.6
 banana 2.5
 caqui 6.6
+tangerina 9.5
+abacaxi 4.55
+pao 0.5
+melancia 20.99

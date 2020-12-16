@@ -4,19 +4,47 @@
 
 venda(){
     echo "nome:"
-    read $codigo
+    read nome
     echo "quantidade:"
-    read $quantidade
+    read quantidade
 
+    extrai_val=`cat produtos.txt | grep $nome | sed "s/[a-z]//g" `
+    resultado=`echo "scale=2;($extrai_val*$quantidade)" | bc`
+
+    if [ $resultado -lt 1 ]
+    then
+       resultado=`echo 0$resultado`
+    fi
+    echo "produto:$nome  quant:$quantidade valor total:$resultado"
     echo "confirmar venda?[s/n]"
-    read $confirma
+    read confirma
+    if [ $confirma=='s' ]
+    then
+       data=`date`
+       echo "$nome - x$quantidade - RS$resultado - $data" >> vendas.txt
+       echo "venda efetuada!"
+       echo ""
+       echo "================================================================================================================"
+       echo ""
+    fi
 }
 consulta(){
-    echo "produto:"
-    read produto
-    resultado=`cat produtos.txt | grep $produto`
-    echo nome:`echo $resultado | sed "s/[0-9]//g"`
-    echo valor:`echo $resultado | sed "s/[a-z]//g"`
+    echo "[1]para todos ou [2] pra especificar"
+    read resposta
+    if [ $resposta -gt 1 ]
+    then
+        echo "produto:"
+        read produto
+        resultado=`cat produtos.txt | grep $produto`
+        echo nome:`echo $resultado | sed "s/[0-9]//g"`
+        echo valor:`echo $resultado | sed "s/[a-z]//g"`
+    else
+        echo `cat produtos.txt` 
+    fi
+     echo ""
+     echo "====================================================================================================================="
+     echo ""
+
 }
 cadastrar(){
    echo "nome:"
@@ -24,6 +52,10 @@ cadastrar(){
    echo "valor:"
    read valor
    echo "$nome $valor" >> produtos.txt
+   echo ""
+   echo "========================================================================================================================="
+   echo ""
+
 }
 
 echo "-----------------------------------------------------------"
@@ -31,22 +63,23 @@ echo "=                                                         ="
 echo "=                     CONTROLE DE CAIXA                   ="
 echo "=                                                         ="
 echo "-----------------------------------------------------------"
+while [ 1 ]
+do 
+     echo "[1] venda, [2] cadastrar [3] consulta [4]sair"
+     read  acao
+     case $acao in
 
-echo "digite [1] para venda, [2] para cadastrar produto e [3] consulta valor produto:"
-read  acao
+     1) venda ;;
 
-case $acao in
+     2) cadastrar;;
 
-1) venda ;;
+     3) consulta ;;
 
-2) cadastrar;;
+     4) break ;;
 
-3) consulta ;;
-
-*) echo "opçao invalida";;
-esac
-
-
+     *) echo "opçao incorreta!"
+     esac
+done
 
 
 
